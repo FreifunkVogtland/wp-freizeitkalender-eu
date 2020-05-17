@@ -22,13 +22,21 @@ class CalendarService
 {
 
     /**
-     * CURL Request auf freizeitkalender.eu XML Schnittstelle
+     * CURL Request auf freizeitkalender.eu XML Schnittstelle (raw data)
      *
      * @param string $url
-     * @return DOMDocument
+     * @return string
      */
-    private static function makeCurlRequest(string $url): DOMDocument
+    private static function makeCurlRequestRaw(string $url): string
     {
+        $apcuPrefix = function_exists('apcu_fetch') && filter_var(ini_get('apc.enabled'), FILTER_VALIDATE_BOOLEAN) ? "wp-freizeitkalender-eu_" : null;
+
+        if (null !== $apcuPrefix) {
+            $output = apcu_fetch($apcuPrefix . $url, $hit);
+            if ($hit)
+                return $output;
+        }
+
         // create curl resource
         $ch = curl_init();
 
@@ -43,6 +51,22 @@ class CalendarService
 
         // close curl resource to free up system resources
         curl_close($ch);
+
+        if (null !== $apcuPrefix)
+            apcu_add($apcuPrefix . $url, $output, 600);
+
+        return $output;
+    }
+
+    /**
+     * CURL Request auf freizeitkalender.eu XML Schnittstelle
+     *
+     * @param string $url
+     * @return DOMDocument
+     */
+    private static function makeCurlRequest(string $url): DOMDocument
+    {
+        $output = self::makeCurlRequestRaw($url);
 
         $doc = new DOMDocument();
         $doc->loadXML($output);
