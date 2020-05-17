@@ -145,9 +145,9 @@ class PluginService
 
         // Register Vue.js
         if (self::isProductionServer()) {
-            wp_register_script('vue-js', 'https://cdn.jsdelivr.net/npm/vue@2.6.0', [], $cache_buster);
+            wp_register_script('vue-js', plugins_url('vue-2.6.11/vue.min.js', __FILE__), [], $cache_buster);
         } else {
-            wp_register_script('vue-js', 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js', [], $cache_buster);
+            wp_register_script('vue-js', plugins_url('vue-2.6.11/vue.js', __FILE__), [], $cache_buster);
         }
 
         // Register own script with depency vue-js
