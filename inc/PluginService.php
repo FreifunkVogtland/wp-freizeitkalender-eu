@@ -135,7 +135,7 @@ class PluginService
     {
         $cache_buster = self::PLUGIN_VERSION;
         // Register Material Design Font
-        wp_register_style('google-material-icons', plugins_url('material-design-icons-3.0.1/material-icons.css', __FILE__), [], $cache_buster);
+        wp_register_style('google-material-icons', plugins_url('material-icons-font-20200325/css/baseline.css', __FILE__), [], $cache_buster);
 
         // Register own style
         wp_register_style('freizeitkalender-eu-style', plugins_url('../css/freizeitkalender-eu.css', __FILE__), ['google-material-icons'], $cache_buster);

@@ -7,9 +7,9 @@ defined('ABSPATH') or die('');
 ?>
 <div id="freizeitkalender-eu">
     <div class="freizeitkalender-eu-menu">
-        <div v-on:click="set_prev_month()" title="Vorheriger Monat"><i class="material-icons">chevron_left</i></div>
-        <div v-on:click="set_current_month()" title="Aktueller Monat"><i class="material-icons">calendar_today</i><span class="freizeitkalender-eu-ml-5">{{get_selected_date_for_display()}}</span></div>
-        <div v-on:click="set_next_month()" title="Nächster Monat"><i class="material-icons">chevron_right</i></div>
+        <div v-on:click="set_prev_month()" title="Vorheriger Monat"><i class="material-icons md-chevron_left"></i></div>
+        <div v-on:click="set_current_month()" title="Aktueller Monat"><i class="material-icons md-calendar_today"></i><span class="freizeitkalender-eu-ml-5">{{get_selected_date_for_display()}}</span></div>
+        <div v-on:click="set_next_month()" title="Nächster Monat"><i class="material-icons md-chevron_right"></i></div>
     </div>
     <div class="freizeitkalender-eu-liste">
         <div v-if="kalender_event_list.length === 0 && !kalender_event_list_loading" class="freizeitkalender-eu-info-none">
@@ -32,7 +32,7 @@ defined('ABSPATH') or die('');
         <div v-for="(kalender_event, index) in kalender_event_list" class="freizeitkalender-eu-event">
             <hr v-if="kalender_event.is_new_date" class="freizeitkalender-eu-event-new-date" v-bind:data-content="kalender_event.datebegin"/>
             <div class="freizeitkalender-eu-event-icon" v-bind:title="kalender_event.event_category">
-                <i class="material-icons">{{kalender_event.icon_class}}</i>
+                <i v-bind:class="'material-icons md-' + kalender_event.icon_class"></i>
             </div>
             <div>
                 <h2>{{ kalender_event.title }}</h2>
